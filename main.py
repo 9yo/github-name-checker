@@ -2,6 +2,7 @@ from requests import get
 from typing import List
 from termcolor import colored
 from threading import Thread
+from concurrent.futures import ThreadPoolExecutor
 
 
 GITHUB_LINK: str = 'https://github.com/'
@@ -11,8 +12,9 @@ BASE_FILE_NAME: str = 'base.txt'
 def get_names() -> List[str]:
     names: List[str] = list()
     for name in open(BASE_FILE_NAME):
-        names.append(name)
+        names.append(name.replace('\n', ''))
 
+    names = names[::-1]
     return names
 
 
@@ -27,15 +29,8 @@ def check_name(name: str, print_is_busy: bool = True):
 
 
 def check_names(names_list: List[str]):
-    th_list: List[Thread] = list()
-    for name in names_list:
-        th: Thread = Thread(target=check_name, args=(name,), name='checking name: ' + name)
-        th.start()
-        th_list.append(th)
-
-    for th in th_list:
-        if th.is_alive():
-            th.join()
+    with ThreadPoolExecutor(max_workers=20) as executor:
+        executor.map(check_name, names_list)
 
 
 if __name__ == "__main__":
