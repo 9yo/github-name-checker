@@ -18,7 +18,7 @@ def get_names() -> List[str]:
     return names
 
 
-def check_name(name: str, print_is_busy: bool = True):
+def check_name(name: str, print_is_busy: bool = False):
     profile_link: str = GITHUB_LINK + name
     req = get(profile_link)
     status_code: int = req.status_code
@@ -29,7 +29,7 @@ def check_name(name: str, print_is_busy: bool = True):
 
 
 def check_names(names_list: List[str]):
-    with ThreadPoolExecutor(max_workers=20) as executor:
+    with ThreadPoolExecutor(max_workers=100) as executor:
         executor.map(check_name, names_list)
 
 
