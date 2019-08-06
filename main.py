@@ -8,10 +8,10 @@ GITHUB_LINK: str = 'https://github.com/'
 
 
 def get_names() -> List[str]:
-    return ['god', 'god2131231']
+    return ['god', 'god23213123213']
 
 
-def check_name(name: str, print_is_busy: bool = False):
+def check_name(name: str, print_is_busy: bool = True):
     profile_link: str = GITHUB_LINK + name
     req = get(profile_link)
     status_code: int = req.status_code
