@@ -5,10 +5,15 @@ from threading import Thread
 
 
 GITHUB_LINK: str = 'https://github.com/'
+BASE_FILE_NAME: str = 'base.txt'
 
 
 def get_names() -> List[str]:
-    return ['god', 'god23213123213']
+    names: List[str] = list()
+    for name in open(BASE_FILE_NAME):
+        names.append(name)
+
+    return names
 
 
 def check_name(name: str, print_is_busy: bool = True):
