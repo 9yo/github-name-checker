@@ -3,13 +3,19 @@
 from string import ascii_lowercase, digits
 
 
-class Generator:
-    def generate():
-        nikcnames: list = []
-        base = ascii_lowercase + digits
-        for symbol in base:
-            nicknames.append(symbol)
+MAX_NICKNAME_LENGTH = 1
 
+
+def generate():
+    nicknames: list = [el for el in (ascii_lowercase + digits)]
+    base = nicknames
+
+    for _ in range(MAX_NICKNAME_LENGTH):
+        nick_buff = nicknames
         for symbol in base:
-            for one_letter_nick in nicknames:
-                pass
+            for nick in nick_buff:
+                nicknames.append(one_letter_nick + symbol)
+
+
+if __name__ == '__main__':
+    Generator.generate()
